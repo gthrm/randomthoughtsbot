@@ -74,14 +74,17 @@ async function handleStart(bot, openai, msg) {
 
 async function handleMessages(bot, openai, msg) {
   const chatId = msg.chat.id;
+
   const isReplyToBot =
     msg.reply_to_message &&
     msg.reply_to_message.from &&
     msg.reply_to_message.from.is_bot;
 
+  const isBot = msg.from.is_bot;
+
   const isInGroup = msg.chat.type === "group" || msg.chat.type === "supergroup";
 
-  if (!isReplyToBot && isInGroup) {
+  if ((!isReplyToBot && isInGroup) || isBot) {
     return;
   }
 
