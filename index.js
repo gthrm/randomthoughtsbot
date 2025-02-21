@@ -79,7 +79,9 @@ async function handleMessages(bot, openai, msg) {
     msg.reply_to_message.from &&
     msg.reply_to_message.from.is_bot;
 
-  if (!isReplyToBot) {
+  const isInGroup = msg.chat.type === "group" || msg.chat.type === "supergroup";
+
+  if (!isReplyToBot && isInGroup) {
     return;
   }
 
